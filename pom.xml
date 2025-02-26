@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>pokemon-generator</artifactId>
+	<artifactId>pokemon_generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pokemon-generator</name>
+	<name>pokemon_generator</name>
 	<description>_nology group project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -32,11 +32,23 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!--       https://spring.io/projects/spring-data-jpa-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>3.4.3</version>
+		</dependency>
+
+		<!--       MySQL Connector/J is a JDBC Type 4 driver, which means that it is pure Java implementation of the MySQL protocol
+        and does not rely on the MySQL client libraries.-->
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>9.2.0</version>
 		</dependency>
 
 		<dependency>
