@@ -13,9 +13,4 @@ public class PokemonGeneratorApplication {
 		SpringApplication.run(PokemonGeneratorApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
-
 }
