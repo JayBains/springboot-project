@@ -8,9 +8,34 @@
     <link rel="stylesheet" href="/../springboot-project/pokemon-generator/src/style.css" />
   </head>
   <body>
-      <h1>Press the button to generate a pokemon</h1>
-      <button>Press me</button>
-      <div id="pokemonCard"></div>
+      <h1>Pokémon Generator</h1>
+      <p id="heading">Enter your name and generate a Pokémon</p>
+      <form id="pokemonForm">
+        <label for="userName">Your Name:</label>
+        <input type="text" id="userName" name="userName" required>
+        <button id="button">Press me</button>
+      </form>
+      <h2>This is your Pokémon</h2>
+      <div id="pokemonCard">
+        <h2 id="pokemonName"></h2>
+        <img id="pokemonImage" src="" alt="Pokemon Image">
+        <p id="pokemonType"></p>
+      </div>      
+      <div>
+        <h2>Generated Pokémon</h2>
+        <table id="pokemonTable">
+          <thead>
+            <tr>
+            <th>Name</th>
+            <th>Pokémon</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+
+        </table>
+      </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
