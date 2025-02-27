@@ -24,39 +24,31 @@ form.addEventListener("submit", async (event) => {
   try {
     const response = await fetch("https://example.com", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+      headers: {"Content-Type": "application/json",
       }, body: JSON.stringify({userName})
       });
-    
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch Pokemon data");
+      }
+
+      // Extracting data from the response
+      const { pokemonName, pokemonImage, pokemonType, date} = await response.json();
+        
+      // Update the pokemon card in the generated pokemon section
+      // MAY NEED TO CHANGE BASED ON BACKEND TABLE
+      pokemonName.textContent = pokemonName;
+      pokemonImage.src = pokemonImage;
+      pokemonType.textContent = `Type: ${pokemonType}`;
+      
+      // Calling addToTable function to populate the table below
+      addToTable(userName, pokemonName, pokemonType, date);}
+      catch (error) {
   }
-
-
-
-
-
-
-  // Fetch a random pokemon from the backend
-  const pokemon = fetchRandomPokemon(userName);
-
-  // Logic to fill pokemon form && clear at the end
-  if (pokemon) {
-    pokemonName.textContent = pokemon.name;
-    pokemonType.textContent = `Type: ${pokemon.type}`;
-    pokemonImage.src = pokemon.image;
-  }
-
-  addToTable(userName, pokemon.name, pokemon.type, pokemon.image);
-
-  // send pokemon and username to the db
 
 });
 
-// Fetch all the pokemon data
-const fetchAllPokemonData = async () => {
-  const response = await fetch("https://example.com");
-  const data = await response.json();
-};
+// Function addToTable called above in the try catch block
 
 
 // User submits name
