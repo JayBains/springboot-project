@@ -42,3 +42,33 @@ form input{
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
+form button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: linear-gradient(45deg, #ffcc00, #ff8c00);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: linear-gradient(45deg, #ff8c00, #ffcc00);
+}
+
+#pokemonCard {
+  margin: 20px auto;
+  padding: 20px;
+  width: 350px;
+  background-color: #fff;
+  border: 2px dashed #ffcc00;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#pokemonCard h2 {
+  font-size: 2rem;
+  color: #ff3e3e;
+  margin-bottom: 10px;
+}
