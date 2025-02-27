@@ -3,6 +3,10 @@ import './style.css'
 // Selecting the HTML Elements
 const form = document.getElementById("pokemonForm") as HTMLFormElement; 
 const userNameInput = document.getElementById("userName") as HTMLInputElement;
+const pokemonName = document.getElementById("pokemonName") as HTMLHeadingElement;
+const pokemonImage = document.getElementById("pokemonImage") as HTMLImageElement;
+const pokemonType = document.getElementById("pokemonType") as HTMLParagraphElement;
+const pastPokemonTable = document.getElementById("pastPokemonTable") as HTMLTableElement;
 
 // Throwing errors
 if (!form || !userNameInput) {
@@ -29,7 +33,7 @@ form.addEventListener("submit", async (event) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch Pokemon data");
+        throw new Error("Failed to fetch Pokémon data");
       }
 
       // Extracting data from the response
@@ -42,14 +46,20 @@ form.addEventListener("submit", async (event) => {
       pokemonType.textContent = `Type: ${pokemonType}`;
       
       // Calling addToTable function to populate the table below
-      addToTable(userName, pokemonName, pokemonType, date);}
+      addToTable(userName, pokemonName, date);} // May change depending on backend table.
       catch (error) {
+        console.error("Error fetching Pokémon: ", error);
+        alert("Failed to generate Pokémon. Please try again later.");
   }
-
 });
 
 // Function addToTable called above in the try catch block
-
+const addToTable = (userName: string, pokemonName: string, date: string) => {
+  const row = pastPokemonTable.getElementsByTagName("tbody")[0].insertRow();
+  row.insertCell(0).textContent = userName;
+  row.insertCell(1).textContent = pokemonName;
+  row.insertCell(2).textContent = date;
+};
 
 // User submits name
 // Name goes backend 
