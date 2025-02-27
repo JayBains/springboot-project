@@ -6,9 +6,9 @@ body {
   margin:0;
 }
 
-h1 {
-  font-size: 3rem;
-  color: rgb(200, 86, 86);
+ h1 {
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
   margin-bottom: 10px;
   text-shadow:2px 2px 0 white;
 }
@@ -17,5 +17,28 @@ h1 {
   font-size: 1.5rem;
   color:rgb(83, 80, 80);
   margin-bottom: 20px;
+}
 
+form {
+  margin: 20px auto;
+  padding: 15px;
+  width: 300px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+form label {
+  font-size: 1rem;
+  display:block;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0);
+}
+
+form input{
+  width: 80%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 2px solid #e6b803;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
