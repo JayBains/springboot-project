@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   text-align: center;
   background-color: aliceblue;
   padding: 20px;
@@ -8,16 +8,12 @@ body {
 
  h1 {
   font-size: 2rem;
-  color: rgb(0, 0, 0);
+  color: rgb(56, 58, 70);
   margin-bottom: 10px;
   text-shadow:2px 2px 0 white;
+  font-weight: 500;
 }
 
-#heading {
-  font-size: 1.5rem;
-  color:rgb(83, 80, 80);
-  margin-bottom: 20px;
-}
 
 form {
   margin: 20px auto;
@@ -57,6 +53,12 @@ form button:hover {
   background: linear-gradient(45deg, #ff8c00, #ffcc00);
 }
 
+h2 {
+  font-size: 1.5rem;
+  color: rgb(56, 58, 70);
+  margin-bottom: 10px;
+}
+
 #pokemonCard {
   margin: 20px auto;
   padding: 20px;
@@ -67,8 +69,35 @@ form button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#pokemonCard h2 {
-  font-size: 2rem;
-  color: #ff3e3e;
-  margin-bottom: 10px;
+#pokemonCard img {
+  width: 200px;
+  height: auto;
+  margin: 10px 0;
 }
+
+
+table {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table thead {
+  background-color: #ffcc00;
+}
+
+table thead th {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+table tbody td {
+  padding: 10px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #ddd;
+}
+
