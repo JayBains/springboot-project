@@ -55,6 +55,17 @@ public class PokemonService {
 
         return jdbcTemplate.queryForList(query);
     }
+
+    public void deletePokemonByUser(String username) {
+        String query = "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?)";
+        jdbcTemplate.update(query, username);
+    }
+
+    public void deleteSpecificPokemon(String username, String pokemonName) {
+        String query = "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?) AND pokemon_name = ?";
+        jdbcTemplate.update(query, username, pokemonName);
+    }
+
 }
 
 // Commented out original code in case we need to revert
