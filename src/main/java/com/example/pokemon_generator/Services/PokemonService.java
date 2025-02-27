@@ -5,9 +5,11 @@ import com.example.pokemon_generator.Repositories.PokemonRepository;
 import com.example.pokemon_generator.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,6 +23,9 @@ public class PokemonService {
 
     @Autowired
     private PokemonRepository pokemonRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public Pokemon generatePokemon(String username) {
 
@@ -40,6 +45,15 @@ public class PokemonService {
         pokemonRepository.insertGeneratedPokemon(userId, pokemonName, pokemonImageUrl);
 
         return new Pokemon(pokemonName, pokemonImageUrl);
+    }
+
+    // Method to get users and their Pokemon
+    public List<Map<String, Object>> getUsersWithPokemon() {
+        String query = "SELECT u.username, p.pokemon_name, p.pokemon_image_url " +
+                "FROM users u " +
+                "JOIN generated_cards p ON u.id = p.user_id";
+
+        return jdbcTemplate.queryForList(query);
     }
 }
 

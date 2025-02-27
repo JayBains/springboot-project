@@ -3,6 +3,9 @@ package com.example.pokemon_generator.Controllers;
 import com.example.pokemon_generator.Models.Pokemon;
 import com.example.pokemon_generator.Services.PokemonService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -28,5 +31,11 @@ public class PokemonController {
     @GetMapping("/{ID}")
     public Pokemon getPokemonByID(@PathVariable String ID) {
         return pokemonService.generatePokemon(ID);
+    }
+
+    // Endpoint to get all users and their generated Pokémon
+    @GetMapping("/all")
+    public List<Map<String, Object>> getUsersWithPokemon() {
+        return pokemonService.getUsersWithPokemon();
     }
 }
