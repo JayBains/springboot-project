@@ -3,9 +3,8 @@ import './style.css'
 // Selecting the HTML Elements
 const form = document.getElementById("pokemonForm") as HTMLFormElement; 
 const userNameInput = document.getElementById("userName") as HTMLInputElement;
-const pokemonName = document.getElementById("pokemonName") as HTMLHeadingElement;
-const pokemonImage = document.getElementById("pokemonImage") as HTMLImageElement;
-const pokemonType = document.getElementById("pokemonType") as HTMLParagraphElement;
+// const pokemonName = document.getElementById("pokemonName") as HTMLHeadingElement;
+// const pokemonImage = document.getElementById("pokemonImage") as HTMLImageElement;
 const pastPokemonTable = document.getElementById("pastPokemonTable") as HTMLTableElement;
 
 // Throwing errors
@@ -37,13 +36,12 @@ form.addEventListener("submit", async (event) => {
       }
 
       // Extracting data from the response
-      const { pokemonName, pokemonImage, pokemonType, date} = await response.json();
+      const { pokemonName, pokemonImage, date} = await response.json();
         
       // Update the pokemon card in the generated pokemon section
       // MAY NEED TO CHANGE BASED ON BACKEND TABLE
       pokemonName.textContent = pokemonName;
       pokemonImage.src = pokemonImage;
-      pokemonType.textContent = `Type: ${pokemonType}`;
       
       // Calling addToTable function to populate the table below
       addToTable(userName, pokemonName, date);} // May change depending on backend table.
