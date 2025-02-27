@@ -6,29 +6,29 @@
 ## Wednesday: Database & Backend Setup
 
 ### 1. Design the Database (Morning)
-- [ ] Elias & Jay: Identify required data (e.g., Pokémon name, type, abilities, stats, image, etc.)
-- [ ] Elias & Jay: Define database tables and relationships
+- [x] Elias & Jay: Identify required data (e.g., Pokémon name, type, abilities, stats, image, etc.)
+- [x] Elias & Jay: Define database tables and relationships
 - [ ] Elias & Jay: Create an Entity Relationship Diagram (ERD)
-- [ ] Elias & Jay: Set up MySQL database schema
-- [ ] Nazrin & Adil: Create mock Pokémon card data in JSON format
-- [ ] Nazrin & Adil: Review database design and suggest any missing data
-- [ ] Group: Quick meeting to finalise database structure
+- [x] Elias & Jay: Set up MySQL database schema
+- [x] Nazrin & Adil: Create mock Pokémon card data in JSON format
+- [x] Nazrin & Adil: Review database design and suggest any missing data
+- [x] Group: Quick meeting to finalise database structure
 
 ### 2. Backend Setup & Frontend Preparation (Afternoon)
-- [ ] Elias & Jay: Set up Spring Boot project and connect to MySQL
-- [ ] Elias & Jay: Create entity classes and define relationships
-- [ ] Elias & Jay: Implement basic API routes (GET: fetch random card, GET: fetch by category, etc.)
-- [ ] Elias & Jay: Test APIs using Postman to verify data retrieval
-- [ ] Elias & Jay: Set up Railway project for backend deployment
-- [ ] Nazrin & Adil: Set up TypeScript project with HTML & CSS structure
-- [ ] Nazrin & Adil: Create UI layout with HTML elements and CSS styling
-- [ ] Nazrin & Adil: Set up Fetch API to make test calls to backend
-- [ ] Group: End-of-day check-in to align backend and frontend progress
+- [x] Elias & Jay: Set up Spring Boot project and connect to MySQL
+- [x] Elias & Jay: Create entity classes and define relationships
+- [x] Elias & Jay: Implement basic API routes (GET: fetch random card, GET: fetch by category, etc.)
+- [x] Elias & Jay: Test APIs using Postman to verify data retrieval
+- [x] Elias & Jay: Set up Railway project for backend deployment
+- [x] Nazrin & Adil: Set up TypeScript project with HTML & CSS structure
+- [x] Nazrin & Adil: Create UI layout with HTML elements and CSS styling
+- [x] Nazrin & Adil: Set up Fetch API to make test calls to backend
+- [x] Group: End-of-day check-in to align backend and frontend progress
 
 ## Thursday: API Completion & Frontend Development
 
 ### 3. Complete API & Connect to Database (Morning)
-- [ ] Elias & Jay: Implement all CRUD operations in backend
+- [x] Elias & Jay: Implement all CRUD operations in backend
 - [ ] Elias & Jay: Add error handling for invalid requests
 - [ ] Elias & Jay: Set up CORS configuration to allow frontend requests
 - [ ] Elias & Jay: Deploy backend API to Railway and test connections
