@@ -38,4 +38,18 @@ public class PokemonController {
     public List<Map<String, Object>> getUsersWithPokemon() {
         return pokemonService.getUsersWithPokemon();
     }
+
+    @DeleteMapping("/delete")
+    public String deletePokemon(@RequestParam String username) {
+        pokemonService.deletePokemonByUser(username);
+        return "All Pokémon records deleted for user: " + username;
+    }
+
+    @DeleteMapping("/delete/specific")
+    public String deleteSpecificPokemon(@RequestParam String username, @RequestParam String pokemonName) {
+        pokemonService.deleteSpecificPokemon(username, pokemonName);
+        return "Deleted " + pokemonName + " for user: " + username;
+    }
+
+
 }
