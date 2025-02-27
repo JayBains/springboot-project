@@ -4,6 +4,10 @@ import './style.css'
 const form = document.getElementById("pokemonForm") as HTMLFormElement; 
 const userNameInput = document.getElementById("userName") as HTMLInputElement;
 
+// Throwing errors
+if (!form || !userNameInput) {
+  throw new Error("Some elements can't be found");
+}
 
 // Handle form submission
 form.addEventListener("submit", async (event) => {
@@ -15,6 +19,22 @@ form.addEventListener("submit", async (event) => {
     alert("Please enter your name!");
     return;
   }
+
+  // Send username to the backend and assigning it a random pokemon
+  try {
+    const response = await fetch("https://example.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }, body: JSON.stringify({userName})
+      });
+    
+  }
+
+
+
+
+
 
   // Fetch a random pokemon from the backend
   const pokemon = fetchRandomPokemon(userName);
