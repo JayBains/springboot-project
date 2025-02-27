@@ -1,14 +1,20 @@
 import './style.css'
 
-const form = document.getElementById("pokemonForm") as HTMLFormElement;
+// Selecting the HTML Elements
+const form = document.getElementById("pokemonForm") as HTMLFormElement; 
+const userNameInput = document.getElementById("userName") as HTMLInputElement;
 
-// fetchAllPokemonData();
 
 // Handle form submission
 form.addEventListener("submit", async (event) => {
   event.preventDefault()
 
-  const userName = (document.getElementById("userName") as HTMLInputElement).value;
+  const userName = userNameInput.value.trim();
+
+  if (!userName) {
+    alert("Please enter your name!");
+    return;
+  }
 
   // Fetch a random pokemon from the backend
   const pokemon = fetchRandomPokemon(userName);
@@ -32,13 +38,10 @@ const fetchAllPokemonData = async () => {
   const data = await response.json();
 };
 
-// Fetch a random pokemon from the backend
-// const fetchRandomPokemon() = async () => {
-//   const response = await fetch("https://example.com");
-//   const data = await response.json();
-// };
 
-
-// Logic to update the table with specific entry
-  // create user pokemon function
-  // Add another empty row
+// User submits name
+// Name goes backend 
+// Assigned random pokemon in backend table
+// Front end fetches that entry
+// Display pokemon card in section 1
+// Updates section 2 table with username, pokemon name, date
