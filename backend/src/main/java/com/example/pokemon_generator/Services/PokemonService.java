@@ -21,11 +21,15 @@ public class PokemonService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PokemonRepository pokemonRepository;
+    private final PokemonRepository pokemonRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public PokemonService(PokemonRepository pokemonRepository){
+        this.pokemonRepository = pokemonRepository;
+    }
 
     public Pokemon generatePokemon(String username) {
 
