@@ -1,67 +1,86 @@
-import './style.css'
+import './style.css';
 
 // Selecting the HTML Elements
 const form = document.getElementById("pokemonForm") as HTMLFormElement; 
-const userNameInput = document.getElementById("userName") as HTMLInputElement;
-// const pokemonName = document.getElementById("pokemonName") as HTMLHeadingElement;
-// const pokemonImage = document.getElementById("pokemonImage") as HTMLImageElement;
+const usernameInput = document.getElementById("userName") as HTMLInputElement;
+const pokemonNameElement = document.getElementById("pokemonName") as HTMLHeadingElement;
+const pokemonImageElement = document.getElementById("pokemonImage") as HTMLImageElement;
 const pastPokemonTable = document.getElementById("pastPokemonTable") as HTMLTableElement;
+const apiUrl = "http://localhost:8080/pokemon"; // Backend API
 
-// Throwing errors
-if (!form || !userNameInput) {
+// Throwing errors if elements are missing
+if (!form || !usernameInput || !pokemonNameElement || !pokemonImageElement || !pastPokemonTable) {
   throw new Error("Some elements can't be found");
 }
 
 // Handle form submission
 form.addEventListener("submit", async (event) => {
-  event.preventDefault()
+  event.preventDefault();
 
-  const userName = userNameInput.value.trim();
+  const username = usernameInput.value.trim();
 
-  if (!userName) {
+  if (!username) {
     alert("Please enter your name!");
     return;
   }
 
-  // Send username to the backend and assigning it a random pokemon
   try {
-    const response = await fetch("https://example.com", {
+    // Send request to backend to generate a Pokemon
+    const response = await fetch(`${apiUrl}/generate?username=${username}`, { 
       method: "POST",
-      headers: {"Content-Type": "application/json",
-      }, body: JSON.stringify({userName})
-      });
+      headers: { "Content-Type": "application/json" } 
+    });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch Pokémon data");
-      }
+    if (!response.ok) throw new Error("Failed to fetch Pokémon data");
 
-      // Extracting data from the response
-      const { pokemonName, pokemonImage, date} = await response.json();
-        
-      // Update the pokemon card in the generated pokemon section
-      // MAY NEED TO CHANGE BASED ON BACKEND TABLE
-      pokemonName.textContent = pokemonName;
-      pokemonImage.src = pokemonImage;
-      
-      // Calling addToTable function to populate the table below
-      addToTable(userName, pokemonName, date);} // May change depending on backend table.
-      catch (error) {
-        console.error("Error fetching Pokémon: ", error);
-        alert("Failed to generate Pokémon. Please try again later.");
+    // Extract data from response
+    const data = await response.json();
+    const { name, spriteUrl } = data;
+
+    // Update the Pokemon card
+    pokemonNameElement.textContent = name;
+    pokemonImageElement.src = spriteUrl;
+
+    // Refresh the table with updated Pokemon data
+    fetchPastPokemon();
+  } catch (error) {
+    console.error("Error fetching Pokémon: ", error);
+    alert("Failed to generate Pokémon. Please try again.");
   }
 });
 
-// Function addToTable called above in the try catch block
-const addToTable = (userName: string, pokemonName: string, date: string) => {
-  const row = pastPokemonTable.getElementsByTagName("tbody")[0].insertRow();
-  row.insertCell(0).textContent = userName;
-  row.insertCell(1).textContent = pokemonName;
-  row.insertCell(2).textContent = date;
-};
+// Fetch all stored Pokemon and update the table
+async function fetchPastPokemon() {
+  try {
+    const response = await fetch(`${apiUrl}/all`);
+    if (!response.ok) throw new Error("Failed to fetch Pokémon data");
 
-// User submits name
-// Name goes backend 
-// Assigned random pokemon in backend table
-// Front end fetches that entry
-// Display pokemon card in section 1
-// Updates section 2 table with username, pokemon name, date
+    const data = await response.json();
+    updateTable(data);
+  } catch (error) {
+    console.error("Error fetching past Pokémon: ", error);
+  }
+}
+
+// Populate the table with users & Pokemon
+function updateTable(pokemonList: { username: string; pokemon_name: string; pokemon_image_url: string }[]) {
+  const tableBody = pastPokemonTable.getElementsByTagName("tbody")[0];
+  tableBody.innerHTML = ""; // Clear previous data
+
+  pokemonList.forEach((entry) => {
+    const row = tableBody.insertRow();
+    row.insertCell(0).textContent = entry.username;
+    row.insertCell(1).textContent = entry.pokemon_name;
+    
+    // Create an image element for the Pokemon sprite
+    const imgCell = row.insertCell(2);
+    const img = document.createElement("img");
+    img.src = entry.pokemon_image_url;
+    img.width = 50;
+    img.height = 50;
+    imgCell.appendChild(img);
+  });
+}
+
+// Fetch stored Pokemon when the page loads
+fetchPastPokemon();
