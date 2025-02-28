@@ -21,29 +21,26 @@ public class PokemonService {
     @Autowired
     private UserRepository userRepository;
 
-    private final PokemonRepository pokemonRepository;
+    @Autowired
+    private PokemonRepository pokemonRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public PokemonService(PokemonRepository pokemonRepository){
-        this.pokemonRepository = pokemonRepository;
-    }
-
+    // Generates a random Pokemon for the user and saves it
     public Pokemon generatePokemon(String username) {
-
         int randomId = (int) (Math.random() * 150) + 1;
         String url = POKEAPI_URL + randomId;
 
-        // Fetches Pokemon data from the PokeAPI
-        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(url, Map.class);
-        Map pokemonData = responseEntity.getBody();
+        // Fetches Pokemon data
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        Map data = response.getBody();
 
-        // Extracts Pokemon data
-        String pokemonName = (String) pokemonData.get("name");
-        String pokemonImageUrl = (String) ((Map<String, Object>) pokemonData.get("sprites")).get("front_default");
+        // Extracts Pokemon data we want
+        String pokemonName = (String) data.get("name");
+        String pokemonImageUrl = (String) ((Map<String, Object>) data.get("sprites")).get("front_default");
 
+        // Stores user & Pokemon in SQL DB
         userRepository.insertUser(username);
         int userId = userRepository.getUserIdByUsername(username);
         pokemonRepository.insertGeneratedPokemon(userId, pokemonName, pokemonImageUrl);
@@ -51,57 +48,29 @@ public class PokemonService {
         return new Pokemon(pokemonName, pokemonImageUrl);
     }
 
-    // Method to get users and their Pokemon
+    // Returns all users and their Pokémon
     public List<Map<String, Object>> getUsersWithPokemon() {
-        String query = "SELECT u.username, p.pokemon_name, p.pokemon_image_url " +
-                "FROM users u " +
-                "JOIN generated_cards p ON u.id = p.user_id";
-
-        return jdbcTemplate.queryForList(query);
+        return jdbcTemplate.queryForList(
+                "SELECT u.username, p.pokemon_name, p.pokemon_image_url " +
+                        "FROM users u " +
+                        "JOIN generated_cards p ON u.id = p.user_id"
+        );
     }
 
+    // Deletes all Pokemon records for a user
     public void deletePokemonByUser(String username) {
-        String query = "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?)";
-        jdbcTemplate.update(query, username);
+        jdbcTemplate.update(
+                "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?)",
+                username
+        );
     }
 
+    // Deletes a specific Pokemon record for a user
     public void deleteSpecificPokemon(String username, String pokemonName) {
-        String query = "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?) AND pokemon_name = ?";
-        jdbcTemplate.update(query, username, pokemonName);
+        jdbcTemplate.update(
+                "DELETE FROM generated_cards WHERE user_id = (SELECT id FROM users WHERE username = ?) " +
+                        "AND pokemon_name = ?",
+                username, pokemonName
+        );
     }
-
 }
-
-// Commented out original code in case we need to revert
-//package com.example.pokemon_generator.Services;
-//
-//import com.example.pokemon_generator.Models.Pokemon;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.client.RestTemplate;
-//
-//import java.util.Map;
-//
-//@Service
-//public class PokemonService {
-//
-//    RestTemplate restTemplate = new RestTemplate();
-//
-//    public Pokemon getPokemonByName(String name) {
-//        String url = "https://pokeapi.co/api/v2/pokemon/" + name;
-//
-//        // Get the full response
-//        ResponseEntity<Map> responseEntity = restTemplate.getForEntity(url, Map.class);
-//        Map pokemonData = responseEntity.getBody();
-//
-//        // Extract only what we need
-//        Pokemon simplePokemon = new Pokemon();
-//        simplePokemon.setName((String) pokemonData.get("name"));
-//
-//        // Extract the front_default sprite URL
-//        Map<String, Object> sprites = (Map<String, Object>) pokemonData.get("sprites");
-//        simplePokemon.setSpriteUrl((String) sprites.get("front_default"));
-//
-//        return simplePokemon;
-//    }
-//}
